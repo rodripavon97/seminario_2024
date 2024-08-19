@@ -1,6 +1,10 @@
+import os
 from threading import *
 from time import *
 from random import *
+from colorama import *
+from art import *
+
 
 class Caballo(Thread):
     def __init__(self, nombre, distancia_meta, carrera):
@@ -18,14 +22,15 @@ class Caballo(Thread):
         
         if self.posicion >= self.distancia_meta and not self.carrera.ganador_evento.is_set():
             self.carrera.ganador_evento.set()
-            print(f"\n{self.nombre} ha ganado la carrera!")
+            print(Fore.MAGENTA,f"\n{self.nombre} ha ganado la carrera 🥇⭐⭐⭐⭐⭐ !")
             self.carrera.registrar_puesto(self.nombre)
         elif self.posicion >= self.distancia_meta:
             self.carrera.registrar_puesto(self.nombre)
 
     def imprimir_posicion(self):
-        recorrido = "-" * self.posicion + ">"
-        print(f"{self.nombre}: {recorrido}")
+        recorrido = "⮞⮞⮞⮞⮞⮞" * self.posicion + "🏇🏽"
+        os.system("cls" if os.name == 'nt' else 'clear')
+        print(Fore.GREEN,f"{self.nombre}: {recorrido}")
 
     def run(self):
         self.correr()
@@ -45,25 +50,29 @@ class CarreraDeCaballos:
     def mostrar_puestos(self):
         print("\nResultados finales:")
         for i, nombre in enumerate(self.puestos, 1):
-            print(f"{i}º puesto: {nombre}")
+            print(Fore.RED,f"{i}º puesto: {nombre}")
 
     def iniciar(self):
         for caballo in self.caballos:
             caballo.start()
+
 
         for caballo in self.caballos:
             caballo.join()
 
 def main():
     try:
-        num_caballos = int(input("Ingrese el número de caballos: "))
-        distancia_meta = int(input("Ingrese la distancia a la meta: "))
+        msg = Fore.CYAN + "Ingrese el número de caballos: " + Style.RESET_ALL
+        msgMeta= Fore.CYAN + "Ingrese la distancia a la meta " + Style.RESET_ALL
+        num_caballos = int(input(msg))
+        distancia_meta = int(input(msgMeta))
     except ValueError:
-        print("Por favor, ingrese valores numéricos válidos.")
+        print(Fore.RED,"Por favor, ingrese valores numéricos válidos.")
         return
 
     carrera = CarreraDeCaballos(num_caballos, distancia_meta)
     carrera.iniciar()
+   
 
 if __name__ == "__main__":
     main()
