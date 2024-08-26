@@ -5,27 +5,34 @@ from time import *
 
 sem_a= Semaphore(0)
 sem_b = Semaphore(0)
-def procesoA () : 
-    print ("proc 1: Inicio")
-    sleep(4)
+tiempoSeleccionado = 10
 
-    print("proc 1: llegue")
+def mensaje(text, color= Fore.RESET) :
+    print (text, color)
+
+def tiempoEspera(tiempo):
+    sleep(tiempo)
+
+def procesoA () : 
+    mensaje("Inicializando el proceso 1", Fore.RED)
+    tiempoEspera(tiempoSeleccionado)
+
+    mensaje("Yendo no, llegando el proceso 1", Fore.GREEN)
     sem_b.release()
     sem_a.acquire()
 
-    print("proc 1: continuando el encuentro")
-    sleep(8)
+    mensaje("Continuando el proceso 1 despues del enceuntroo", Fore.YELLOW)
+    tiempoEspera(tiempoSeleccionado)
 
 def procesoB () : 
-    print ("proc 2: Inicio")
-    sleep(10)
-
-    print("proc 2: llegue")
+    mensaje("Inicializando el proceso 2", Fore.RED)
+    tiempoEspera(tiempoSeleccionado)
+    mensaje("Yendo no, llegando el proceso 2", Fore.CYAN)
     sem_a.release()
     sem_b.acquire()
 
-    print("proc 2: continuando el encuentro")
-    sleep(8)
+    mensaje("Continuando el proceso 2 despues del enceuntroo", Fore.GREEN)
+    tiempoEspera(tiempoSeleccionado)
 
 hilo1 = Thread(target=procesoA)
 hilo2= Thread(target=procesoB)
@@ -36,4 +43,4 @@ hilo2.start()
 hilo1.join()
 hilo2.join()
 
-print ("proceso finalizado")
+mensaje("Proceso finalizado por favor reinicie el codigo", Fore.CYAN)
