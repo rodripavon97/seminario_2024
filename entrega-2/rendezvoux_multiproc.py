@@ -1,4 +1,5 @@
-from threading import Semaphore, Thread, Lock
+from threading import *
+from colorama import *
 
 # Inicialización de los semáforos
 mutex = Semaphore(1)
@@ -9,7 +10,7 @@ def proceso(id, n_proc):
     global count, barrera, mutex
 
     # Código antes de la marca
-    print(f"Proceso {id} llegó a la marca")
+    print(Fore.GREEN,f"Proceso {id} llegó a la marca")
 
     # Sección crítica para modificar el contador
     mutex.acquire()  # P(mutex)
@@ -26,7 +27,7 @@ def proceso(id, n_proc):
     mutex.release()  # V(mutex)
 
     # Código después de la marca
-    print(f"Proceso {id} continúa")
+    print(Fore.LIGHTRED_EX,f"Proceso {id} continúa")
 
 # Leer el número de procesos
 n_proc = int(input("Ingrese el número de procesos: "))
