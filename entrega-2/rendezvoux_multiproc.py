@@ -1,5 +1,6 @@
 from threading import *
 from colorama import *
+from time import *
 
 # Inicialización de los semáforos
 mutex = Semaphore(1)
@@ -8,6 +9,8 @@ barrera = Semaphore(0)  # Inicializado a 0, se liberará cuando todos lleguen a 
 
 def proceso(id, n_proc):
     global count, barrera, mutex
+
+    sleep(10)
 
     # Código antes de la marca
     print(Fore.GREEN,f"Proceso {id} llegó a la marca")
