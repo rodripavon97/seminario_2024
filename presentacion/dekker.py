@@ -4,11 +4,13 @@ from threading import *
 wantp = False
 wantq = False
 turn = 1
+process= 10
+i=0
 
 # Función para el proceso p
 def process_p():
-    global wantp, wantq, turn
-    while True:
+    global wantp, wantq, turn, process,i
+    while i< process:
         # Sección no crítica
         print("p: Sección no crítica")
         
@@ -24,11 +26,12 @@ def process_p():
         
         turn = 2  # Cede el turno a q
         wantp = False  # Sale de la sección crítica
+        i+=1
 
 # Función para el proceso q
 def process_q():
-    global wantp, wantq, turn
-    while True:
+    global wantp, wantq, turn, i, process
+    while i< process:
         # Sección no crítica
         print("q: Sección no crítica")
         
@@ -44,6 +47,7 @@ def process_q():
         
         turn = 1  # Cede el turno a p
         wantq = False  # Sale de la sección crítica
+        i+=1
 
 # Creación de hilos para simular los procesos
 thread_p = Thread(target=process_p)
