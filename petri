@@ -1,0 +1,84 @@
+digraph G {
+    node [shape=circle];
+
+    // Etiquetas de los estados y transiciones
+    // C -> comer, P -> pensar, T -> tenedores
+    // FC -> disparador de comer, FP -> disparador de pensar
+
+    // Definición de lugares para los filósofos
+    // Filósofo 1
+    F1_comer [label="C1"];
+    F1_pensar [label="P1"];
+    T_comer1 [label="FC1", shape=rectangle];
+    T_pensar1 [label="FP1", shape=rectangle];
+
+    // Filósofo 2
+    F2_comer [label="C2"];
+    F2_pensar [label="P2"];
+    T_comer2 [label="FC2", shape=rectangle];
+    T_pensar2 [label="FP2", shape=rectangle];
+
+    // Filósofo 3
+    F3_comer [label="C3"];
+    F3_pensar [label="P3"];
+    T_comer3 [label="FC3", shape=rectangle];
+    T_pensar3 [label="FP3", shape=rectangle];
+
+    // Filósofo 4
+    F4_comer [label="C4"];
+    F4_pensar [label="P4"];
+    T_comer4 [label="FC4", shape=rectangle];
+    T_pensar4 [label="FP4", shape=rectangle];
+
+    // Filósofo 5
+    F5_comer [label="C5"];
+    F5_pensar [label="P5"];
+    T_comer5 [label="FC5", shape=rectangle];
+    T_pensar5 [label="FP5", shape=rectangle];
+
+    // Definición de los tenedores
+    Fork1 [label="T1"];
+    Fork2 [label="T2"];
+    Fork3 [label="T3"];
+    Fork4 [label="T4"];
+    Fork5 [label="T5"];
+
+    // Relaciones y transiciones para los filósofos
+
+    // Filósofo 1
+    F1_pensar -> T_pensar1;
+    T_pensar1 -> F1_comer;
+    F1_comer -> T_comer1;
+    T_comer1 -> { F1_pensar, Fork1, Fork5 };
+
+    // Filósofo 2
+    F2_pensar -> T_pensar2;
+    T_pensar2 -> F2_comer;
+    F2_comer -> T_comer2;
+    T_comer2 -> { F2_pensar, Fork1, Fork2 };
+
+    // Filósofo 3
+    F3_pensar -> T_pensar3;
+    T_pensar3 -> F3_comer;
+    F3_comer -> T_comer3;
+    T_comer3 -> { F3_pensar, Fork2, Fork3 };
+
+    // Filósofo 4
+    F4_pensar -> T_pensar4;
+    T_pensar4 -> F4_comer;
+    F4_comer -> T_comer4;
+    T_comer4 -> { F4_pensar, Fork3, Fork4 };
+
+    // Filósofo 5
+    F5_pensar -> T_pensar5;
+    T_pensar5 -> F5_comer;
+    F5_comer -> T_comer5;
+    T_comer5 -> { F5_pensar, Fork4, Fork5 };
+
+    // Relaciones para tenedores compartidos
+    Fork1 -> { T_pensar1, T_pensar2 };
+    Fork2 -> { T_pensar2, T_pensar3 };
+    Fork3 -> { T_pensar3, T_pensar4 };
+    Fork4 -> { T_pensar4, T_pensar5 };
+    Fork5 -> { T_pensar1, T_pensar5 };
+}
